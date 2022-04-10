@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "donnezdata",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\prana\\Documents\\GitHub\\Passion-Project\\MyApplication\\amplify\\backend\\api\\donnezdata\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}

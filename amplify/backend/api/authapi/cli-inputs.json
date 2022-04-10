@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/auth": {
+      "name": "/auth",
+      "lambdaFunction": "donnezauth",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/access": {
+      "name": "/access",
+      "lambdaFunction": "donnezauth",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

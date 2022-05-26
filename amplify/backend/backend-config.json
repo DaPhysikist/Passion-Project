@@ -1,70 +1,6 @@
 {
-  "storage": {
-    "donnezdynamo": {
-      "service": "DynamoDB",
-      "providerPlugin": "awscloudformation"
-    }
-  },
-  "function": {
-    "donnezauth": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "storage",
-          "resourceName": "donnezdynamo",
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "attributeEnvMap": {
-            "Name": "TABLE_NAME",
-            "Arn": "TABLE_ARN"
-          }
-        }
-      ]
-    },
-    "userdatafunction": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
-    }
-  },
-  "api": {
-    "authapi": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "donnezauth",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
-    },
-    "donnezdata": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            }
-          },
-          "additionalAuthenticationProviders": []
-        }
-      }
-    }
-  },
   "auth": {
-    "donnezauth": {
+    "passionprojectd84b1f6fd84b1f6f": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -76,7 +12,7 @@
           "EMAIL"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyMinLength": "10",
+          "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",
@@ -86,6 +22,41 @@
         "verificationMechanisms": [
           "EMAIL"
         ]
+      }
+    }
+  },
+  "api": {
+    "dataAccess": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "passionprojectd84b1f6fd84b1f6f",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authpassionprojectd84b1f6fd84b1f6f"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 365,
+                "apiKeyExpirationDate": "2023-05-20T06:50:53.950Z",
+                "description": "graphqlkey"
+              }
+            }
+          ]
+        }
       }
     }
   }

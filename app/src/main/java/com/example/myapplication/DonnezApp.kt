@@ -9,6 +9,7 @@ import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.AWSDataStorePlugin
 import kotlin.isInitialized as isInitialized
 
 class DonnezApp : Application() {
@@ -20,6 +21,7 @@ class DonnezApp : Application() {
             // Add this line, to include the Auth plugin
             Amplify.addPlugin(AWSApiPlugin())
             Amplify.addPlugin(AWSCognitoAuthPlugin())
+            Amplify.addPlugin(AWSDataStorePlugin())
             Amplify.configure(applicationContext)
             Log.i("DonnezApp", "Initialized Amplify")
         } catch (error: AmplifyException) {

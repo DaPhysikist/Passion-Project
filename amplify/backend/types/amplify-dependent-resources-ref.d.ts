@@ -1,42 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
-    "storage": {
-        "donnezdynamo": {
-            "Name": "string",
-            "Arn": "string",
-            "StreamArn": "string",
-            "PartitionKeyName": "string",
-            "PartitionKeyType": "string",
-            "Region": "string"
-        }
-    },
-    "function": {
-        "donnezauth": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "userdatafunction": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        }
-    },
-    "api": {
-        "authapi": {
-            "RootUrl": "string",
-            "ApiName": "string",
-            "ApiId": "string"
-        },
-        "donnezdata": {
-            "GraphQLAPIKeyOutput": "string",
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
-        }
-    },
     "auth": {
-        "donnezauth": {
+        "passionprojectd84b1f6fd84b1f6f": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -44,6 +8,13 @@ export type AmplifyDependentResourcesAttributes = {
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
             "AppClientID": "string"
+        }
+    },
+    "api": {
+        "dataAccess": {
+            "GraphQLAPIKeyOutput": "string",
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
         }
     }
 }

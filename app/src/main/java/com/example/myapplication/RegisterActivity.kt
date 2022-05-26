@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.os.Build.VERSION_CODES.S
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,25 +12,16 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.Amplify
+import com.example.myapplication.data.Database
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
-const val EXTRA_USERNAME = "Pseudonym"
-
 class RegisterActivity : AppCompatActivity() {
-    /*
-    var fullName: EditText = findViewById(R.id.reg_full_name)
-    var email: EditText = findViewById(R.id.reg_email)
-    var datePicker: DatePicker = findViewById(R.id.reg_date_picker)
-    var regUsername: EditText = findViewById(R.id.reg_username)
-    var regPassword: EditText = findViewById(R.id.reg_password)
-    var confPassword: EditText = findViewById(R.id.reg_confirm_password)
-*/
-    var dd:String = ""
-    var mm:String = ""
-    var yyyy:String = ""
     var birthDate:String = ""
     var datePicked:Boolean = false
 
@@ -44,12 +36,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setListeners(){
-        var fullName: EditText = findViewById(R.id.reg_full_name)
-        var regEmail: EditText = findViewById(R.id.reg_email)
-        var datePicker: DatePicker = findViewById(R.id.reg_date_picker)
-        var regUsername: EditText = findViewById(R.id.reg_username)
-        var regPassword: EditText = findViewById(R.id.reg_password)
-        var confPassword: EditText = findViewById(R.id.reg_confirm_password)
+        val fullName: EditText = findViewById(R.id.reg_full_name)
+        val regEmail: EditText = findViewById(R.id.reg_email)
+        val datePicker: DatePicker = findViewById(R.id.reg_date_picker)
+        val regUsername: EditText = findViewById(R.id.reg_username)
+        val regPassword: EditText = findViewById(R.id.reg_password)
+        val confPassword: EditText = findViewById(R.id.reg_confirm_password)
 
         //birth date picker
         val dp = Calendar.getInstance()
@@ -58,12 +50,8 @@ class RegisterActivity : AppCompatActivity() {
                 view, year, month, day ->
             val month = month + 1
             datePicked = true
-            dd = day.toString()
-            mm = month.toString()
-            yyyy = year.toString()
+            birthDate = "$month-$day-$year"
         })
-
-        birthDate = yyyy + "-" + mm + "-" + dd
 
         //Sign Up button click
         findViewById<Button>(R.id.btn_sign_up).setOnClickListener {
@@ -75,10 +63,13 @@ class RegisterActivity : AppCompatActivity() {
         val email:String = regEmail.text.toString()
         val username: String = regUsername.text.toString()
         val password: String = regPassword.text.toString()
+        val name: String = fullName.text.toString()
 
-        val icon = AppCompatResources.getDrawable(applicationContext, R.drawable.error_icon)
+
+        val icon = AppCompatResources.getDrawable(applicationContext, android.R.drawable.ic_dialog_alert)
 
         icon?.setBounds(0,0,icon.minimumWidth,icon.minimumHeight)
+
         when{
             TextUtils.isEmpty(fullName.text.toString().trim())->{
                 fullName.setError("Please Enter Full Name",icon)
@@ -96,21 +87,21 @@ class RegisterActivity : AppCompatActivity() {
                 confPassword.setError("Please Enter Password Again",icon)
             }
 
-            fullName.text.toString().isNotEmpty() &&
-                    regEmail.text.toString().isNotEmpty() &&
+            name.isNotEmpty() &&
+                    email.isNotEmpty() &&
                     datePicked == true &&
-                    regUsername.text.toString().isNotEmpty() &&
-                    regPassword.text.toString().isNotEmpty() &&
+                    username.isNotEmpty() &&
+                    password.isNotEmpty() &&
                     confPassword.text.toString().isNotEmpty() ->
             {
-                if (regEmail.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
-                    if(regPassword.text.toString().matches(Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!?%^&+=])(?=\\S+$).{10,}$"))){
-                        if (regPassword.text.toString().equals(confPassword.text.toString())){
+                if (email.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
+                    if(password.matches(Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!?%^&+=])(?=\\S+$).{10,}$"))){
+                        if (password.equals(confPassword.text.toString())){
                             val options = AuthSignUpOptions.builder()
                                 .userAttribute(AuthUserAttributeKey.email(), email)
                                 .build()
                             Amplify.Auth.signUp(username, password, options,
-                                { goToSignUpConfirmation(username) },
+                                { goToSignUpConfirmation(username, password, name, email) },
                                 { showMessage("Sign up failed") }
                             )
                         }
@@ -128,9 +119,13 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
-    private fun goToSignUpConfirmation(username: String){
+    private fun goToSignUpConfirmation(username: String, password: String, name: String, email: String){
         val intent = Intent(this@RegisterActivity, VerifyActivity::class.java).apply {
-            putExtra(EXTRA_USERNAME, username)
+            putExtra("Username", username)
+            putExtra("Password", password)
+            putExtra("Name", name)
+            putExtra("Email", email)
+            putExtra("Birthday", birthDate)
         }
         startActivity(intent)
     }

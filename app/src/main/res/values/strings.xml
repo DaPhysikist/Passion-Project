@@ -19,6 +19,15 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="confirmation_code">Confirmation Code (######)</string>
     <string name="verify">Verify</string>
-    <string name="identity_id_not_found">Identify not found!</string>
+    <string name="points">Amount of points</string>
+    <string name="logout">Logout</string>
+    <string name="pointsTitle">Points</string>
+    <string name="hide_table">Hide Table</string>
+    <string name="receive_points">Receive Points</string>
+    <string name="send_points">Send Points</string>
+    <string name="share_points">Share Points</string>
+    <string name="connect">Connect</string>
+    <string name="show_table">Show Table</string>
+    <string name="disconnect">disconnect</string>
 
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -7,18 +7,65 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/identityId_textview"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/identity_id_not_found"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.112" />
+        android:gravity="center_horizontal"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/points_maker"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/points"
+            app:boxBackgroundColor="#F8E9FD"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/share_points"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/connect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/connect"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/disconnect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/disconnect"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/send_points"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/show_table"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:text="@string/show_table"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/logout"/>
+
+    </LinearLayout>
+
+</ScrollView>

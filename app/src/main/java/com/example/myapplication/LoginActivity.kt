@@ -5,30 +5,39 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.content.res.AppCompatResources
+import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.core.Amplify
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var logUsername: EditText
-    lateinit var logPassword: EditText
+    lateinit var usernameInput: EditText
+    lateinit var passwordInput: EditText
+
+    private var pointsData: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        val currentUser: AuthUser? = Amplify.Auth.currentUser
 
-        setListeners()
+        pointsData = intent.getStringExtra("Points Data")
+
+        if(currentUser != null){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        setListeners(pointsData)
     }
 
-    private fun setListeners(){
-        logUsername = findViewById(R.id.log_username)
-        logPassword = findViewById(R.id.log_password)
+    private fun setListeners(pointsData: String?){
+        usernameInput = findViewById(R.id.log_username)
+        passwordInput = findViewById(R.id.log_password)
 
         findViewById<Button>(R.id.btn_register).setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
@@ -36,43 +45,51 @@ class LoginActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btn_login).setOnClickListener{
-            validateEmptyForm()
+            validateEmptyForm(pointsData)
         }
     }
 
-    private fun validateEmptyForm(){
-        val icon = AppCompatResources.getDrawable(applicationContext, R.drawable.error_icon)
+    private fun validateEmptyForm(pointsData: String?){
+        val icon = AppCompatResources.getDrawable(applicationContext, android.R.drawable.ic_dialog_alert)
 
         icon?.setBounds(0,0,icon.minimumWidth,icon.minimumHeight)
         when
         {
-            TextUtils.isEmpty(logUsername.text.toString().trim())->{
-                logUsername.setError("Please Enter Username",icon)
+            TextUtils.isEmpty(usernameInput.text.toString().trim())->{
+                usernameInput.setError("Please Enter Username",icon)
             }
-            TextUtils.isEmpty(logPassword.text.toString().trim())->{
-                logPassword.setError("Please Enter Password",icon)
+            TextUtils.isEmpty(passwordInput.text.toString().trim())->{
+                passwordInput.setError("Please Enter Password",icon)
             }
 
-            logUsername.text.toString().isNotEmpty() &&
-                    logPassword.text.toString().isNotEmpty() ->
+            usernameInput.text.toString().isNotEmpty() &&
+                    passwordInput.text.toString().isNotEmpty() ->
             {
-                Amplify.Auth.signIn(logUsername.text.toString(), logPassword.text.toString(),
+                Amplify.Auth.signIn(usernameInput.text.toString(), passwordInput.text.toString(),
                     { result ->
                         if (result.isSignInComplete) {
-                            openMainAppScreen()
+                            if (pointsData != null){
+                                val database = DatabaseAccess()
+                                database.handleReceive(pointsData)
+                                openMainAppScreen()
+                            }
+                            else {
+                                openMainAppScreen()
+                            }
                         } else {
                             showMessage("Sign in not complete")
                         }
                     },
-                    { error -> showMessage("Failed to sign in") }
+                    { showMessage("Failed to sign in") }
                 )
             }
         }
     }
 
     private fun openMainAppScreen() {
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun showMessage(message: String?) {

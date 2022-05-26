@@ -1,153 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSecondaryVariant"
+    android:elevation="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RegisterActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
-
-        <RelativeLayout
+    <ScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:gravity="center_horizontal"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/full_name"
-                app:boxBackgroundColor="#F8E9FD"
-                android:layout_marginStart="35dp">
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/reg_full_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.google.android.material.textfield.TextInputEditText>
+                    android:layout_height="wrap_content"
+                    android:hint="@string/full_name"
+                    android:background="@color/turquoise_dark"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
 
             <DatePicker
                 android:id="@+id/reg_date_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_marginStart="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 android:datePickerMode="spinner"
-                android:calendarViewShown = "false"
-                app:boxBackgroundColor="#F8E9FD" />
+                android:theme="@style/MyDatePicker"
+                android:calendarViewShown = "false" />
 
-        </RelativeLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/reg_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:background="@color/turquoise_dark"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"/>
 
-            <EditText
-                android:id="@+id/reg_email"
-                android:layout_width="250dp"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/reg_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/username"
+                    android:background="@color/turquoise_dark"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
-                app:boxBackgroundColor="#F8E9FD"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="40dp"/>
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/white">
 
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/reg_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="@string/password"
+                    android:background="@color/turquoise_dark"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp">
+                </EditText>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/reg_username"
-                android:layout_width="250dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
-                app:boxBackgroundColor="#F8E9FD"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="40dp"/>
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/white">
 
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/reg_confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="@string/confirm_password"
+                    android:background="@color/turquoise_dark"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp">
+                </EditText>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/reg_password"
-                android:inputType="textPassword"
-                android:layout_width="250dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:hint="@string/password"
-                app:boxBackgroundColor="#F8E9FD"
-                android:layout_marginStart="35dp"/>
+                android:layout_marginTop="35dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/showPwd"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/reg_password"
-                android:gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:text="Show"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:id="@+id/reg_confirm_password"
-                android:inputType="textPassword"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:hint="@string/confirm_password"
-                app:boxBackgroundColor="#F8E9FD"
-                android:layout_marginStart="35dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/showConfPwd"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/reg_confirm_password"
-                android:gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:text="Show"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:id="@+id/btn_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
-                android:layout_centerHorizontal="true"
-                android:text="@string/sign_up" />
-        </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:id="@+id/btn_sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/sign_up" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.appcompat.widget.Toolbar>

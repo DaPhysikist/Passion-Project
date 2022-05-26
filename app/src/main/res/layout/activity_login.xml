@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_toolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
+    android:background="?attr/colorSecondaryVariant"
     android:elevation="4dp"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -22,43 +23,56 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-
-
-            <ImageView
-                android:layout_width="258dp"
-                android:layout_height="273dp"
-                android:layout_marginTop="90dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
+                android:gravity="center_horizontal"
                 android:text="@string/app_name"
+                android:textSize="50sp"
                 android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/log_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/username"
-                app:boxBackgroundColor="#F8E9FD"
                 android:layout_marginTop="50dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"/>
+                android:textColor="#FFF" />
 
-            <EditText
-                android:id="@+id/log_password"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/log_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/username"
+                    android:background="@color/turquoise_dark"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                app:boxBackgroundColor="#F8E9FD"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"/>
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/white">
+
+                <EditText
+                    android:id="@+id/log_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="@string/password"
+                    android:background="@color/turquoise_dark"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp">
+                </EditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -74,7 +88,6 @@
                     android:text="@string/login" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:id="@+id/btn_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
